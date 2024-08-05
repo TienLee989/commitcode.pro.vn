@@ -2,15 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    // Clone repository từ Git
-                    checkout scm
-                }
-            }
-        }
-
         stage('Navigate to Angular Directory') {
             steps {
                 dir('commitcode.pro.vn/angular') {
