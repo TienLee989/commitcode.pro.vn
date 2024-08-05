@@ -2,12 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Navigate to Angular Directory') {
+        stage('Install') {
             steps {
                 dir('angular') {
                     script {
                         // Cài đặt các dependencies
-                        sh 'npm install'
+                        bat 'node -v'
+                        //sh 'npm install'
                     }
                 }
             }
