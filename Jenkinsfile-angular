@@ -7,8 +7,7 @@ pipeline {
                 dir('angular') {
                     script {
                         // Cài đặt các dependencies
-                        bat 'node -v'
-                        //sh 'npm install'
+                        bat 'npm install'
                     }
                 }
             }
@@ -19,7 +18,7 @@ pipeline {
                 dir('angular') {
                     script {
                         // Xây dựng ứng dụng Angular
-                        sh 'npm run start'
+                        bat 'npm run start'
                     }
                 }
             }
