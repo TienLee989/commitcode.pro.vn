@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Clone repository từ Git
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Navigate to Angular Directory') {
+            steps {
+                dir('commitcode.pro.vn/angular') {
+                    script {
+                        // Cài đặt các dependencies
+                        sh 'npm install'
+                    }
+                }
+            }
+        }
+
+        stage('Build Angular App') {
+            steps {
+                dir('commitcode.pro.vn/angular') {
+                    script {
+                        // Xây dựng ứng dụng Angular
+                        sh 'npm run start'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished'
+            emailext body: 'Run pipeline Fail', subject: 'Pipeline commitcode.pro.vn', to: 'tienlee.lvt@gmail.com'
+        }
+        success {
+            echo 'Pipeline succeeded'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
