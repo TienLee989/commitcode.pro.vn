@@ -27,7 +27,7 @@ pipeline {
                 dir('angular') {
                     script {
                         //bat 'echo "run build"'
-                        bat 'ng build --configuration development'
+                        bat 'npm run ng -- build'
                     }
                 }
             }
