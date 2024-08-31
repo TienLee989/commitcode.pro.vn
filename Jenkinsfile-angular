@@ -16,7 +16,7 @@ pipeline {
                 dir('angular') {
                     script {
                         // Cài đặt các dependencies
-                        bat 'npm install --package-lock-only --legacy-peer-deps --ignore-scripts'
+                        bat 'npm ci'
                     }
                 }
             }
