@@ -73,8 +73,7 @@ pipeline {
                     // Đảm bảo Docker được cấu hình đúng
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
                         try {
-                            sh 'docker info'
-                            sh 'docker run hello-world'
+                            sh 'start /B my-command docker run hello-world'
                         } catch (Exception e) {
                             echo "Error: ${e.message}"
                         }
