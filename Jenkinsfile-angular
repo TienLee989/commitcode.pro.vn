@@ -7,7 +7,10 @@ pipeline {
                 dir('angular') {
                     script {
                         // Cài đặt các dependencies
-                        bat 'npm install'
+                        bat 'echo "clean cache"'
+                        bat 'npm clean cache --force'
+                        bat 'echo "install dependencies"'
+                        bat 'npm install --package-lock-only --legacy-peer-deps --ignore-scripts'
                     }
                 }
             }
@@ -17,8 +20,8 @@ pipeline {
             steps {
                 dir('angular') {
                     script {
-                        // Xây dựng ứng dụng Angular
-                        bat 'npm run start'
+                        bat 'echo "run build"'
+                        bat 'npm start'
                     }
                 }
             }
