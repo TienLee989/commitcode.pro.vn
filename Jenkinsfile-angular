@@ -2,26 +2,32 @@ pipeline {
     agent any
 
     stages {
+        stage('Clean') {
+            steps {
+                dir('angular') {
+                    script {
+                        bat 'npm cache clean --force'
+                    }
+                }
+            }
+        }
         stage('Install') {
             steps {
                 dir('angular') {
                     script {
                         // Cài đặt các dependencies
-                        //bat 'echo "clean cache"'
-                        bat 'npm cache clean --force'
-                        //bat 'echo "install dependencies"'
                         bat 'npm install --package-lock-only --legacy-peer-deps --ignore-scripts'
                     }
                 }
             }
         }
 
-        stage('Build Angular App') {
+        stage('Build') {
             steps {
                 dir('angular') {
                     script {
                         //bat 'echo "run build"'
-                        bat 'npm run start'
+                        bat 'ng build --configuration development'
                     }
                 }
             }
