@@ -1,39 +1,71 @@
 pipeline {
     agent any
 
+    //Server jenkins
+    // stages {
+    //     stage('Clean') {
+    //         steps {
+    //             dir('angular') {
+    //                 script {
+    //                     bat 'npm cache clean --force'
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     stage('Install') {
+    //         steps {
+    //             dir('angular') {
+    //                 script {
+    //                     // Cài đặt các dependencies
+    //                     bat 'npm ci'
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     stage('Build') {
+    //         steps {
+    //             dir('angular') {
+    //                 script {
+    //                     //bat 'echo "run build"'
+    //                     bat 'npm run ng -- build'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    //Server docker
     stages {
-        stage('Clean') {
+        stage('Login to Docker Hub') {
             steps {
-                dir('angular') {
-                    script {
-                        bat 'npm cache clean --force'
-                    }
-                }
-            }
-        }
-        stage('Install') {
-            steps {
-                dir('angular') {
-                    script {
-                        // Cài đặt các dependencies
-                        bat 'npm ci'
+                script {
+                    // Sử dụng credentials để đăng nhập vào Docker Hub
+                    docker.withRegistry('https://hub.docker.com/', 'docker-hub') {
+                        echo "Logged in to Docker Hub"
                     }
                 }
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                dir('angular') {
-                    script {
-                        //bat 'echo "run build"'
-                        bat 'npm run ng -- build'
+                script {
+                    sh "docker build -t commitcode:latest ."
+                }
+            }
+        }
+
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://hub.docker.com/', 'docker-hub') {
+                        sh "docker push commitcode:latest"
                     }
                 }
             }
         }
     }
-
     post {
         always {
             echo 'Pipeline finished'
