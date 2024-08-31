@@ -7,9 +7,9 @@ pipeline {
                 dir('angular') {
                     script {
                         // Cài đặt các dependencies
-                        bat 'echo "clean cache"'
+                        //bat 'echo "clean cache"'
                         bat 'npm clean cache --force'
-                        bat 'echo "install dependencies"'
+                        //bat 'echo "install dependencies"'
                         bat 'npm install --package-lock-only --legacy-peer-deps --ignore-scripts'
                     }
                 }
