@@ -20,8 +20,8 @@ pipeline {
             steps {
                 dir('angular') {
                     script {
-                        bat 'echo "run build"'
-                        bat 'npm start'
+                        //bat 'echo "run build"'
+                        bat 'npm run start'
                     }
                 }
             }
