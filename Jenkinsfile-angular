@@ -36,31 +36,42 @@ pipeline {
     // }
 
     //Server docker
+    // stages {
+    //     stage('Login to Docker Hub') {
+    //         steps {
+    //             script {
+    //                 // Đăng nhập vào Docker Hub
+    //                 docker.withRegistry('', 'docker-hub') {
+    //                     echo "Logged in to Docker Hub"
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     stage('Build Docker Image') {
+    //         steps {
+    //             script {
+    //                 sh "docker build -t commitcode:latest ."
+    //             }
+    //         }
+    //     }
+
+    //     stage('Push Docker Image to Docker Hub') {
+    //         steps {
+    //             script {
+    //                 docker.withRegistry('', 'docker-hub') {
+    //                     sh "docker push commitcode:latest"
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     stages {
-        stage('Login to Docker Hub') {
+        stage('Test Docker Access') {
             steps {
                 script {
-                    // Sử dụng credentials để đăng nhập vào Docker Hub
-                    docker.withRegistry('https://hub.docker.com/', 'docker-hub') {
-                        echo "Logged in to Docker Hub"
-                    }
-                }
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker build -t commitcode:latest ."
-                }
-            }
-        }
-
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                script {
-                    docker.withRegistry('https://hub.docker.com/', 'docker-hub') {
-                        sh "docker push commitcode:latest"
+                    docker.withRegistry('', 'docker-hub') {
+                        sh 'docker pull hello-world'
                     }
                 }
             }
