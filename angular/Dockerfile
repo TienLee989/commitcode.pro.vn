@@ -1,13 +1,29 @@
-FROM node:latest as build
+# Bước 1: Sử dụng hình ảnh Node.js 16.15 làm môi trường build
+FROM node:16.15.0 AS build
 
-WORKDIR /usr/local/app
+# Thiết lập thư mục làm việc
+WORKDIR /app
 
-COPY . /usr/local/app/
+# Sao chép package.json và package-lock.json vào thư mục làm việc
+COPY package*.json ./
 
+# Cài đặt các phụ thuộc
 RUN npm install
 
-RUN npm run start
+# Sao chép mã nguồn vào thư mục làm việc
+COPY . .
 
-FROM nginx:latest
-COPY --from=build /usr/local/app/dist/commitcode /usr/share/nginx/html
+# Build ứng dụng Angular
+RUN npm run ng -- build
+
+# Bước 2: Sử dụng hình ảnh Nginx để phục vụ ứng dụng
+FROM nginx:alpine
+
+# Sao chép build artifacts từ bước build vào thư mục Nginx
+COPY --from=build /app/dist/ngx-admin-demo /usr/share/nginx/html
+
+# Expose cổng 80 cho Nginx
 EXPOSE 80
+
+# Khởi động Nginx
+CMD ["nginx", "-g", "daemon off;"]
