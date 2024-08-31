@@ -8,7 +8,7 @@ pipeline {
                     script {
                         // Cài đặt các dependencies
                         //bat 'echo "clean cache"'
-                        bat 'npm clean cache --force'
+                        bat 'npm cache clean --force'
                         //bat 'echo "install dependencies"'
                         bat 'npm install --package-lock-only --legacy-peer-deps --ignore-scripts'
                     }
