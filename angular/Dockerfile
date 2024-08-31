@@ -14,7 +14,8 @@ RUN npm install
 COPY . .
 
 # Build ứng dụng Angular
-RUN npm run ng -- build
+#RUN npm run ng -- build
+RUN npm 
 
 # Bước 2: Sử dụng hình ảnh Nginx để phục vụ ứng dụng
 FROM nginx:alpine
@@ -24,6 +25,7 @@ COPY --from=build /app/dist/ngx-admin-demo /usr/share/nginx/html
 
 # Expose cổng 80 cho Nginx
 EXPOSE 80
+EXPOSE 443
 
 # Khởi động Nginx
 CMD ["nginx", "-g", "daemon off;"]
