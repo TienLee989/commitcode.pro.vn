@@ -34,10 +34,10 @@ pipeline {
             emailext body: 'Run pipeline Fail', subject: 'Pipeline commitcode.pro.vn', to: 'tienlee.lvt@gmail.com'
         }
         success {
-            echo 'Pipeline succeeded'
+            echo 'SUCCESS'
         }
         failure {
-            echo 'Pipeline failed'
+            echo 'FAILED'
         }
     }
 }
