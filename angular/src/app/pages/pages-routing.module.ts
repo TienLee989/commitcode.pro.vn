@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { PagesComponent } from './pages.component';
-import { SDashboardComponent } from './s-dashboard/s-dashboard.component';
+// import { SDashboardComponent } from './s-dashboard/s-dashboard.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,10 +15,10 @@ const routes: Routes = [{
       path: 'dashboard',
       component: ECommerceComponent,
     },
-    {
-      path: 's-dashboard',
-      component: SDashboardComponent,
-    },
+    // {
+    //   path: 's-dashboard',
+    //   component: SDashboardComponent,
+    // },
     {
       path: 'iot-dashboard',
       component: DashboardComponent,
