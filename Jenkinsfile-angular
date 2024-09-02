@@ -2,38 +2,49 @@ pipeline {
     agent any
 
     //Server jenkins
-    // stages {
-    //     stage('Clean') {
-    //         steps {
-    //             dir('angular') {
-    //                 script {
-    //                     bat 'npm cache clean --force'
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     stage('Install') {
-    //         steps {
-    //             dir('angular') {
-    //                 script {
-    //                     // Cài đặt các dependencies
-    //                     bat 'npm ci'
-    //                 }
-    //             }
-    //         }
-    //     }
+    stages {
+        stage('Clean') {
+            steps {
+                dir('angular') {
+                    script {
+                        bat 'npm cache clean --force'
+                    }
+                }
+            }
+        }
+        stage('Install') {
+            steps {
+                dir('angular') {
+                    script {
+                        // Cài đặt các dependencies
+                        bat 'npm ci'
+                    }
+                }
+            }
+        }
 
-    //     stage('Build') {
-    //         steps {
-    //             dir('angular') {
-    //                 script {
-    //                     //bat 'echo "run build"'
-    //                     bat 'npm run ng -- build'
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+        stage('Build') {
+            steps {
+                dir('angular') {
+                    script {
+                        //bat 'echo "run build"'
+                        bat 'npm run ng -- build'
+                    }
+                }
+            }
+        }
+
+        stage('Publish') {
+            steps {
+                dir('angular') {
+                    script {
+                        //bat 'echo "run build"'
+                        bat 'npm run publish'
+                    }
+                }
+            }
+        }
+    }
 
     //Server docker
     // stages {
@@ -66,18 +77,6 @@ pipeline {
     //         }
     //     }
     // }
-    stages {
-        stage('Check Docker Access') {
-            steps {
-                script {
-                    // Đảm bảo Docker được cấu hình đúng
-                    docker.withRegistry('', 'docker-hub') {
-                        sh 'docker run hello-world'
-                    }
-                }
-            }
-        }
-    }
     post {
         always {
             echo 'Pipeline finished'
