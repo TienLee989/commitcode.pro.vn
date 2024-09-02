@@ -72,7 +72,7 @@ pipeline {
                 script {
                     // Đảm bảo Docker được cấu hình đúng
                     docker.withRegistry('', 'docker-hub') {
-                        sh 'start /B docker run hello-world'
+                        sh 'docker run hello-world'
                     }
                 }
             }
